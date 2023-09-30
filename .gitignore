@@ -1,0 +1,7 @@
+/target
+
+*.ical
+/config.json
+/my_config.json
+/calendar.html
+/Cargo.lock
