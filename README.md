@@ -18,6 +18,8 @@ Options:
 
 for configuration check out the provided example.
 
+The calendar refreshes at midnight once you place the first request.
+
 # My Usecase
 
 I use this in combination with firefox's html to png feature, some convert tricks and an e-ink display to view my calendar on my desk. See the scripts folder for how that works.
