@@ -1,0 +1,29 @@
+{
+	"wrapper_class": "test",
+	"css_path": "style.css",
+	"weeks": 4,
+	"week_as_row": true,
+	"header": true,
+	"first_day": {"DayOfWeek": 0},
+	"calendars": {
+		"birthdays": {
+			"CachedURLwithRefreshAuth": {
+				"url": "https://apidata.googleusercontent.com/caldav/v2/{your calendar url here}/events",
+				"path": "cache/birthdays.ical",
+				"refresh_hours": 240,
+				"token_url": "https://oauth2.googleapis.com/token",
+				"token_body": "{see_my_blog_for_the_magic_string_needed_here}"
+			}
+		},
+		"holidays": {
+			"CachedURL": {
+				"url": "http://www.kayaposoft.com/enrico/ics/v2.0?fromDate=01-09-2023&toDate=01-09-2024&country=de&region=by&lang=de", 
+				"path": "cache/holidays.ical",
+				"refresh_hours": 2400
+			}
+		},
+		"personal": {
+			"File":  "cache/personal.ical"
+		}
+	}
+}
