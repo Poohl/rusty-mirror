@@ -210,9 +210,6 @@ fn main() -> Result<(), AnError> {
 			let len = content.len();
 			let response = format!("{}\r\nContent-Length: {}\r\n\r\n{}", head, len, content);
 			stream.write_all(response.as_bytes()).unwrap();
-			if let Err(e)=  stream.shutdown(std::net::Shutdown::Both) {
-				eprintln!("Error closing TCP connection: {}", e);
-			};
 		}
 	} 
 	Ok(())
