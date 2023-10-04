@@ -6,9 +6,9 @@ extern crate serde;
 use std::fs;
 use std::io::{BufRead, Write};
 use std::{io::BufReader, net::TcpListener};
-use chrono::{NaiveDate, Days, Datelike, Weekday, Timelike};
 use std::collections::{HashMap, HashSet};
 use std::vec::Vec;
+use chrono::{NaiveDate, Days, Datelike, Weekday, Timelike, TimeZone};
 use itertools::Itertools;
 use icalendar::{Component, DatePerhapsTime, Event, Calendar};
 use clap::Parser;
@@ -222,7 +222,10 @@ fn icaltime_to_naive(src: &icalendar::DatePerhapsTime) -> (chrono::NaiveDate, Op
 	match src {
 		DatePerhapsTime::DateTime(cdt) => match cdt {
 			icalendar::CalendarDateTime::Floating(ndt) => (ndt.date(),Some(ndt.time())),
-			icalendar::CalendarDateTime::Utc(dtu) => (dtu.naive_local().date(),Some(dtu.naive_local().time())),
+			icalendar::CalendarDateTime::Utc(dtu) => {
+				let dtl = chrono::Local.from_utc_datetime(&dtu.naive_utc()).naive_local();
+				(dtl.date(),Some(dtl.time()))
+			},
 			icalendar::CalendarDateTime::WithTimezone { date_time, .. } => (date_time.date(), Some(date_time.time())),
 		},
 		DatePerhapsTime::Date(nd) => (nd.clone(), None)
