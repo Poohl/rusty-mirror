@@ -35,6 +35,12 @@ div.personal {
 	border-radius: 5px;
 }
 
+div.recurring {
+	background: black;
+	color: white;
+	border-radius: 5px;
+}
+
 div.birthdays {
 	border-radius: 5px;
 	border: 2px solid red;

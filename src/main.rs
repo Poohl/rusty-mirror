@@ -305,7 +305,7 @@ fn to_display<'a>(e: &Event, calender_name: &'a str) -> DisplayEvent<'a> {
 	DisplayEvent {
 		title: e.get_summary().unwrap_or("<no title>").to_string(),
 		time: e.get_start().and_then(|s|icaltime_to_naive(&s).1),
-		classes: vec![calender_name],
+		classes: if e.get_sequence().is_some(){ vec![calender_name, "recurring"]} else {vec![calender_name]},
 	}
 }
 
