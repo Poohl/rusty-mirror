@@ -160,10 +160,17 @@ mod download {
 						let client = reqwest::blocking::Client::new();
 						println!("refreshing cached calendar from {}, authenticating now...", url);
 						let t = client.post(token_url).header("content-type", "application/x-www-form-urlencoded").body(token_body.to_string()).send()?;
-						let x = t.json::<TokenResonse>()?;
-						let out = client.get(url).bearer_auth(x.access_token).send()?.text()?;
-						write_cache(path, &out);
-						Ok(out)
+						let _x = t.json::<TokenResonse>();
+						if let Ok(x) = _x {
+							let out = client.get(url).bearer_auth(x.access_token).send()?.text()?;
+							write_cache(path, &out);
+							Ok(out)
+						} else if let Err(x) = _x {
+							println!("Warning: could not load {url}, due to {x} trying cache:");
+							fs::read_to_string(path).map_err(AnError::from)
+						} else {
+							panic!("This cant happen")
+						}
 					} else {
 						fs::read_to_string(path).map_err(AnError::from)
 					}
